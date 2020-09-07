@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">LeaderBoard</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="tab_label1">SkillIQ</string>
+    <string name="tab_label2">LeaderBoard</string>
+
+</resources>
