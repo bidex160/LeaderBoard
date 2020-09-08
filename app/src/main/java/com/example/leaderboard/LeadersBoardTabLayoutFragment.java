@@ -1,20 +1,15 @@
 package com.example.leaderboard;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.RecyclerView.Adapter;
 
 import com.example.leaderboard.Adapters.LeaderBoardRecyclerviewAdapter;
 import com.example.leaderboard.Model.LeaderBoard;
@@ -31,14 +26,9 @@ import retrofit2.Response;
 import static android.content.ContentValues.TAG;
 
 public class LeadersBoardTabLayoutFragment extends Fragment {
-    Context context;
     private RecyclerView recyclerView;
     private LeaderBoardRecyclerviewAdapter leaderBoardRecyclerviewAdapter;
     private List<LeaderBoard> leaderBoard;
-    private View view;
-    private Object LeaderBoardRecyclerviewAdapter;
-    private  LinearLayoutManager linearLayoutManager;
-   private Adapter adapter;
 
     //add a public constructor
     public LeadersBoardTabLayoutFragment() {
@@ -47,12 +37,9 @@ public class LeadersBoardTabLayoutFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.leadersboard_fragment, container, false);
-        recyclerView = (RecyclerView)view.findViewById(R.id.RecView);
-       // adapter = new LeaderBoardRecyclerviewAdapter((List<LeaderBoard>) getContext());
+        final View view = inflater.inflate(R.layout.leadersboard_fragment, container, false);
+        recyclerView = view.findViewById(R.id.RecView);
         leaderBoard = new ArrayList<>();
-      //  LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-      //  recyclerView.setLayoutManager(linearLayoutManager);
          return view;
     }
 
@@ -66,10 +53,14 @@ public class LeadersBoardTabLayoutFragment extends Fragment {
         leaderBoardRequest.enqueue(new Callback<List<LeaderBoard>>() {
             @Override
             public void onResponse(Call<List<LeaderBoard>> call, Response<List<LeaderBoard>> response) {
-                List<LeaderBoard> leaderBoard = response.body();
-                leaderBoardRecyclerviewAdapter = new LeaderBoardRecyclerviewAdapter(leaderBoard, getContext());
-               LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-               recyclerView.setLayoutManager(linearLayoutManager);
+                /**
+                 * @see i added the {@link androidx.recyclerview.widget.LinearLayoutManager} via
+                 * the xml file.
+                 * Your MAJOR error = you forgot to add you response body to your adaptor
+                 */
+                leaderBoardRecyclerviewAdapter = new LeaderBoardRecyclerviewAdapter();
+                leaderBoardRecyclerviewAdapter.setLeaderBoard( response.body());
+                recyclerView.setAdapter(leaderBoardRecyclerviewAdapter);
 
             }
 

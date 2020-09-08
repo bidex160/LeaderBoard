@@ -1,6 +1,5 @@
 package com.example.leaderboard.Adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,25 +13,19 @@ import com.example.leaderboard.Model.LeaderBoard;
 import com.example.leaderboard.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.List;
 
 public class LeaderBoardRecyclerviewAdapter extends RecyclerView.Adapter<LeaderBoardRecyclerviewAdapter.ViewHolder> {
-     Context context;
+
     //initialize the array list
     private List<LeaderBoard> leaderBoard = new ArrayList<>();
-    //initialize the constructor
-     public  LeaderBoardRecyclerviewAdapter(Context context, List<LeaderBoard> body){
-       }
 
-    public LeaderBoardRecyclerviewAdapter(List<LeaderBoard> body) {
+    /**
+     * I removed all unnecessary constructors  
+     */
+    public  LeaderBoardRecyclerviewAdapter(){
 
-    }
-
-    public LeaderBoardRecyclerviewAdapter(List<LeaderBoard> leaderBoard, Context context) {
-         this.context = context;
-         this.leaderBoard = new ArrayList<>();
-    }
+     }
 
     @NonNull
     @Override
@@ -43,9 +36,11 @@ public class LeaderBoardRecyclerviewAdapter extends RecyclerView.Adapter<LeaderB
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.txtStudentName.setText(leaderBoard.get(position).getName());
-        holder.txtHoursEngaged.setText(leaderBoard.get(position).getHours());
-        holder.image.setImageResource(leaderBoard.get(position).getImage());
+
+        /**
+         * @see I moved all the logic to [{@link ViewHolder} class
+         */
+        holder.bind( leaderBoard.get(position));
     }
 
     @Override
@@ -68,6 +63,21 @@ public class LeaderBoardRecyclerviewAdapter extends RecyclerView.Adapter<LeaderB
             txtStudentName =itemView.findViewById(R.id.student_name);
             txtHoursEngaged =itemView.findViewById(R.id.hours_engaged);
             image = itemView.findViewById(R.id.image);
+
+        }
+
+        public void bind(LeaderBoard leaderBoard){
+            txtStudentName.setText(leaderBoard.getName());
+            txtHoursEngaged.setText(leaderBoard.getHours());
+
+            /**
+             * @see add Glide dependency then uncomment below
+             * Glide takes an image URl and loads it to an ImageView
+             */
+//            Glide.with( image.getContext())
+//                    .load( leaderBoard.getImage())
+//                    .centerCrop()
+//                    .into(image);
         }
     }
 }

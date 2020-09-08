@@ -1,8 +1,17 @@
 package com.example.leaderboard.Model;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class LeaderBoard {
+    @SerializedName("name")
+    @Expose
     private String name;
+    @SerializedName("hours")
+    @Expose
     private String hours;
+    @SerializedName("image")
+    @Expose
     private int image;
 
     public LeaderBoard(){
