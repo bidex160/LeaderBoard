@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.leaderboard.Model.LeaderBoard;
 import com.example.leaderboard.R;
 
@@ -74,10 +75,10 @@ public class LeaderBoardRecyclerviewAdapter extends RecyclerView.Adapter<LeaderB
              * @see add Glide dependency then uncomment below
              * Glide takes an image URl and loads it to an ImageView
              */
-//            Glide.with( image.getContext())
-//                    .load( leaderBoard.getImage())
-//                    .centerCrop()
-//                    .into(image);
+           Glide.with( image.getContext())
+                   .load( leaderBoard.getImage())
+                   .centerCrop()
+                   .into(image);
         }
     }
 }
